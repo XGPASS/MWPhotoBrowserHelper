@@ -25,8 +25,7 @@ TODO: Add long description of the pod here.
   s.screenshots     = 'https://github.com/XGPASS/MWPhotoBrowserHelper/blob/master/images/develop.gif'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'XGPass' => 'syg90718@163.com' }
-  s.source           = { :git => 'git@github.com:XGPASS/MWPhotoBrowserHelper.git', :tag => 1.0 }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => 'git@github.com:XGPASS/MWPhotoBrowserHelper.git', :tag => '1.0' }
 
   s.ios.deployment_target = '8.0'
 
