@@ -19,10 +19,8 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod 'MWPhotoBrowserHelper'
 ```
-
-## Author
-
-XGPass, yongguang.sun@uama.com.cn
+## 演示图
+![演示图](https://github.com/XGPASS/MWPhotoBrowserHelper/blob/master/images/develop.gif)
 
 ## License
 
