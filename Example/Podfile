@@ -1,0 +1,10 @@
+use_frameworks!
+
+target 'MWPhotoBrowserHelper_Example' do
+  pod 'MWPhotoBrowserHelper', :path => '../'
+
+  target 'MWPhotoBrowserHelper_Tests' do
+    inherit! :search_paths
+
+  end
+end
