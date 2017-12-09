@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'MWPhotoBrowserHelper'
   s.version          = '1.0'
-  s.summary          = 'A short description of MWPhotoBrowserHelper.'
+  s.summary          = '对MWPhotoBrowser的修改，让浏览大图更为方便'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?

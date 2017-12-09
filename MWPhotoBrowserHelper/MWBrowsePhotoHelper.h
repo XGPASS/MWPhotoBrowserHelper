@@ -13,7 +13,7 @@
 /**
  浏览大图方法
  
- @param images 图片数组
+ @param images 图片数组 里面的元素只能是 UIImage或者NSString
  @param index 当前显示第几张
  @param controller 容器
  */

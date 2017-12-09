@@ -75,6 +75,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _enableGrid = YES;
     _startOnGrid = NO;
     _enableSwipeToDismiss = YES;
+    _showDownload = YES;
     _delayToHideElements = 5;
     _visiblePages = [[NSMutableSet alloc] init];
     _recycledPages = [[NSMutableSet alloc] init];
@@ -160,21 +161,23 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _pagingScrollView.contentSize = [self contentSizeForPagingScrollView];
     [self.view addSubview:_pagingScrollView];
     
-    CGFloat imageSize = 35.0f;
-    
-    CGFloat bottomMargin = 0.f;
-    if ([self isIPhoneX]) {
-        bottomMargin = 34.f;
+    // 下载按钮
+    if (_showDownload) {
+        CGFloat imageSize = 35.0f;
+        CGFloat bottomMargin = 0.f;
+        if ([self isIPhoneX]) {
+            bottomMargin = 34.f;
+        }
+        CGFloat posX = [[UIScreen mainScreen] bounds].size.width - imageSize - 15.0f;
+        CGFloat posY = CGRectGetMaxY(_pagingScrollView.frame) - imageSize - 15.0f - bottomMargin;
+        _downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _downloadButton.frame = CGRectMake(posX, posY, imageSize, imageSize);
+        
+        UIImage *downloadImage = [UIImage imageForBundleImageName:@"download_button_70"];
+        [_downloadButton setImage:downloadImage forState:UIControlStateNormal];
+        [_downloadButton addTarget:self action:@selector(downloadButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_downloadButton];
     }
-    CGFloat posX = [[UIScreen mainScreen] bounds].size.width - imageSize - 15.0f;
-    CGFloat posY = CGRectGetMaxY(_pagingScrollView.frame) - imageSize - 15.0f - bottomMargin;
-    _downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _downloadButton.frame = CGRectMake(posX, posY, imageSize, imageSize);
-    
-    UIImage *downloadImage = [UIImage imageForBundleImageName:@"download_button_70"];
-    [_downloadButton setImage:downloadImage forState:UIControlStateNormal];
-    [_downloadButton addTarget:self action:@selector(downloadButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_downloadButton];
     
     
     // Toolbar
