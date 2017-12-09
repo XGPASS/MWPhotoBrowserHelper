@@ -12,7 +12,7 @@
 
 + (UIImage *)imageForBundleImageName:(NSString *)name {
     
-    UIImage *image = [UIImage imageNamed:[@"MWPhotoBrowserHelper.bundle" stringByAppendingPathComponent:name]];
+    UIImage *image = [UIImage imageNamed:[@"MWPhotoBrowserHelper.bundle/images" stringByAppendingPathComponent:name]];
     if (image) {
         return image;
     } else {

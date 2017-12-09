@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MWPhotoBrowserHelper'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = '对MWPhotoBrowser的修改，让浏览大图更为方便'
 
 # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ TODO: Add long description of the pod here.
   s.screenshots     = 'https://github.com/XGPASS/MWPhotoBrowserHelper/blob/master/images/develop.gif'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'XGPass' => 'syg90718@163.com' }
-  s.source           = { :git => 'https://github.com/XGPASS/MWPhotoBrowserHelper.git', :tag => '1.0.1' }
+  s.source           = { :git => 'https://github.com/XGPASS/MWPhotoBrowserHelper.git', :tag => '1.0.2' }
 
   s.ios.deployment_target = '8.0'
 
