@@ -19,12 +19,12 @@ pod 'MWPhotoBrowserHelper'
 然后 pod install
 
 ## 用法示例
-先在所需的类引入MWBrowsePhotoHelper,然后直接使用即可
+先在所需的类引入MWBrowsePhotoHelper,然后直接使用即可（Example里XGViewController类里）
 ```
 [MWBrowsePhotoHelper showBigImages:imagesArray currentIndex:index controller:self];
 ```
 
-## 演示图 可在直接下载
+## 演示图
 ![演示图](https://github.com/XGPASS/MWPhotoBrowserHelper/blob/master/images/develop.gif)
 
 ## License
