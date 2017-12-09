@@ -7,16 +7,20 @@
 //
 
 #import "UIImage+MWPhotoBrowser.h"
+#import "MWPhotoBrowser.h"
 
 @implementation UIImage (MWPhotoBrowser)
 
 + (UIImage *)imageForBundleImageName:(NSString *)name {
     
-    UIImage *image = [UIImage imageNamed:[@"MWPhotoBrowserHelper.bundle/images" stringByAppendingPathComponent:name]];
+    NSBundle *bundle = [NSBundle bundleForClass:[MWPhotoBrowser class]];
+    NSURL *bundleURL = [bundle URLForResource:@"MWPhotoBrowserHelper" withExtension:@"bundle"];
+    UIImage *image = [UIImage imageNamed:name inBundle:[NSBundle bundleWithURL:bundleURL] compatibleWithTraitCollection:nil];
+    
     if (image) {
         return image;
     } else {
-        image = [UIImage imageNamed:[@"Frameworks/MWPhotoBrowserHelper.framework/MWPhotoBrowserHelper.bundle/images" stringByAppendingPathComponent:name]];
+        image = [UIImage imageNamed:[@"Frameworks/MWPhotoBrowserHelper.framework/MWPhotoBrowserHelper.bundle" stringByAppendingPathComponent:name]];
         if (image) {
             return image;
         } else {
