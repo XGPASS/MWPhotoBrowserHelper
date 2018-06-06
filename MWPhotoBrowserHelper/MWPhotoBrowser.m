@@ -12,6 +12,7 @@
 #import "MWPhotoBrowserPrivate.h"
 #import "SDImageCache.h"
 #import "UIImage+MWPhotoBrowser.h"
+#import <Photos/Photos.h>
 
 #define PADDING                  10
 
@@ -221,11 +222,68 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 /// 下载图片
 - (void)downloadButtonAction:(UIButton *)button {
     NSLog(@"下载图片啦");
-    id <MWPhoto> photo = [self photoAtIndex:_currentPageIndex];
-    if ([photo underlyingImage]) {
-        [self showProgressHUDWithMessage:[NSString stringWithFormat:@"%@\u2026" , @"保存中..."]];
-        [self performSelector:@selector(actuallySavePhoto:) withObject:photo afterDelay:0];
-    }
+    
+    __weak typeof(self)weakSelf = self;
+    [self fetchAuthorizationOfPhotoLibraryAuthorized:^{
+        id <MWPhoto> photo = [weakSelf photoAtIndex:_currentPageIndex];
+        if ([photo underlyingImage]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+               [weakSelf showProgressHUDWithMessage:[NSString stringWithFormat:@"%@\u2026" , @"保存中..."]];
+                [weakSelf actuallySavePhoto:photo];
+            });
+        }
+    }];
+    
+    
+   
+}
+
+- (void)fetchAuthorizationOfPhotoLibraryAuthorized:(void(^)(void))authorizedBlcok {
+    
+    /*
+     1.如果用户还没有做过选择，这个方法就会弹框让用户做出选择,用户做出选择以后才会回调block
+     2.如果用户之前已经做过选择，这个方法就不会再弹框，直接回调block，传递现在的授权状态给block
+     */
+    
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        
+        if (status == PHAuthorizationStatusAuthorized) {
+            // 允许
+            if (authorizedBlcok) {
+                authorizedBlcok();
+            }
+        }
+        else if (status == PHAuthorizationStatusNotDetermined) {
+            // 用户还没有对当前App授权过(用户从未点击过Don't Allow或者OK按钮)
+            if (authorizedBlcok) {
+                authorizedBlcok();
+            }
+        }
+        else if (status == PHAuthorizationStatusDenied) {
+            // 拒绝
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"未获得授权访问系统相册"
+                                                                    message:@"请在iOS\"设置\"-\"隐私\"-\"照片\"中打开"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles: nil];
+                [alertView show];
+            });
+            
+        }
+        else if (status == PHAuthorizationStatusRestricted) {
+            // 因为一些系统原因导致无法访问相册（比如家长控制）
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"访问系统相册受限"
+                                                                    message:@"请在iOS\"设置\"-\"隐私\"-\"照片\"中打开"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles: nil];
+                [alertView show];
+            });
+        }
+    }];
+    
 }
 
 - (void)actuallySavePhoto:(id<MWPhoto>)photo {

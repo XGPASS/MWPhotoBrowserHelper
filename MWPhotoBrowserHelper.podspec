@@ -32,7 +32,7 @@ TODO: Add long description of the pod here.
   s.source_files = 'MWPhotoBrowserHelper/**/*.{h,m}'
   s.resources = ['MWPhotoBrowserHelper/**/*.{bundle}']
 
-  s.frameworks = 'ImageIO', 'QuartzCore', 'AssetsLibrary', 'MediaPlayer'
+  s.frameworks = 'ImageIO', 'QuartzCore', 'AssetsLibrary', 'MediaPlayer', 'Photos'
 
   s.dependency 'MBProgressHUD', '~> 0.9'
   s.dependency 'DACircularProgress', '~> 2.3.1'
